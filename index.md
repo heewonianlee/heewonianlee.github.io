@@ -9,7 +9,7 @@ I'm Ian, an Electrical and Electronic Engineering undergraduate at Yonsei Univer
 
 ## Selected projects
 
-### [Speaker verification on the Kria KV260]({{ '/projects/kv260/' | relative_url }})
+### [An HLS-Based Audio CNN Accelerator for the Kria KV260]({{ '/projects/kv260/' | relative_url }})
 
 At MSU's HATLab, I use Vitis HLS to build a CNN accelerator for speaker verification. I compare convolution designs by latency, DSP use, and on-chip memory use, then integrate the accelerator with the processing system in Vivado.
 
