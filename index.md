@@ -5,7 +5,7 @@ title: Engineering Portfolio
 
 # Engineering Portfolio
 
-I'm Ian, an electrical and electronic engineering undergraduate at Yonsei University and an exchange student at Michigan State University. I study how hardware design choices affect the speed and resource use of machine learning and memory systems.
+I'm Ian, an Electrical and Electronic Engineering undergraduate at Yonsei University and an exchange student at Michigan State University. I study how hardware design choices affect the speed and resource use of machine learning and memory systems.
 
 ## Selected projects
 
