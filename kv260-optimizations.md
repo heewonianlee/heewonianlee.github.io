@@ -10,7 +10,29 @@ permalink: /projects/kv260/optimizations/
 
 ## 1. Parallelism Tuning
 
-I pipelined the convolution loops to overlap successive iterations and unrolled selected MAC operations to run them in parallel. In Block 1, I used two lanes to process more work per iteration. In Block 3, I folded the computation across two phases so the same 16 or 32 MAC lanes could serve both phases. That reduced the number of simultaneous multiplications at the cost of extra cycles.
+### Why
+
+Full channel-level parallelism in the deeper convolution layers consumed enough FPGA resources to make full-CNN integration difficult.
+
+### How
+
+- I used two-lane processing in Conv Block 1 to increase parallelism in the early layers.
+- In Conv Block 3, I reused each set of MAC lanes across two phases. `Conv3_1` processed 32 input channels with 16 lanes per phase. `Conv3_2` processed 64 input channels with 32 lanes per phase.
+- Within each lane, all nine taps of the 3 × 3 kernel still ran in parallel.
+
+### Result
+
+HLS synthesis estimates for Conv Block 3:
+
+| Metric | Full Parallel | Reuse16/32 | Change |
+| --- | ---: | ---: | ---: |
+| Latency | 1.730 ms | 2.603 ms | +50.5% |
+| DSP | 449 | 255 | **−43.2%** |
+| LUT | 94,423 | 77,071 | **−18.4%** |
+| FF | 79,159 | 53,117 | **−32.9%** |
+| BRAM_18K | 19 | 19 | No change |
+
+Reusing the MAC lanes freed 194 DSPs for the rest of the CNN at the cost of 0.873 ms of additional Block 3 latency.
 
 ## 2. Data Reuse & Streaming
 
